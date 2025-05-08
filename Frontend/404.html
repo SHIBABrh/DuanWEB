@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Không tìm thấy trang | Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .error-code {
+            font-size: 120px;
+            font-weight: 700;
+            color: #4e73df;
+            margin-bottom: 0;
+            line-height: 1;
+        }
+        
+        .error-title {
+            font-size: 28px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .error-description {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .error-icon {
+            font-size: 80px;
+            color: #4e73df;
+            margin-bottom: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .error-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 20px;
+            background-color: #4e73df;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .error-button:hover {
+            background-color: #2e59d9;
+            transform: translateY(-2px);
+        }
+        
+        .error-button.secondary {
+            background-color: #f8f9fc;
+            color: #4e73df;
+            border: 1px solid #4e73df;
+        }
+        
+        .error-button.secondary:hover {
+            background-color: #eaecf4;
+        }
+        
+        .error-button i {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 576px) {
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-title {
+                font-size: 24px;
+            }
+            
+            .error-description {
+                font-size: 16px;
+            }
+            
+            .error-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <i class="fas fa-map-marker-alt error-icon"></i>
+        <h1 class="error-code">404</h1>
+        <h2 class="error-title">Không tìm thấy trang</h2>
+        <p class="error-description">
+            Rất tiếc, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Trang có thể đã bị di chuyển, đổi tên hoặc không tồn tại.
+        </p>
+        <div class="button-group">
+            <a href="index.html" class="error-button">
+                <i class="fas fa-home"></i> Trang chủ
+            </a>
+            <a href="javascript:history.back()" class="error-button secondary">
+                <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt hệ thống - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Cài đặt hệ thống</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Cài đặt hệ thống</li>
+                    </ul>
+                </div>
+
+                <!-- Settings Tabs -->
+                <div class="settings-container">
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" data-tab="general">
+                            <i class="fas fa-sliders-h"></i> Cài đặt chung
+                        </button>
+                        <button class="tab-btn" data-tab="website">
+                            <i class="fas fa-globe"></i> Website
+                        </button>
+                        <button class="tab-btn" data-tab="users">
+                            <i class="fas fa-user-cog"></i> Người dùng
+                        </button>
+                        <button class="tab-btn" data-tab="email">
+                            <i class="fas fa-envelope"></i> Email
+                        </button>
+                        <button class="tab-btn" data-tab="payment">
+                            <i class="fas fa-money-bill-wave"></i> Thanh toán
+                        </button>
+                        <button class="tab-btn" data-tab="api">
+                            <i class="fas fa-plug"></i> API & Tích hợp
+                        </button>
+                        <button class="tab-btn" data-tab="backup">
+                            <i class="fas fa-database"></i> Sao lưu & Phục hồi
+                        </button>
+                    </div>
+
+                    <div class="settings-content">
+                        <!-- General Settings -->
+                        <div class="tab-content active" id="general">
+                            <div class="settings-section">
+                                <h2 class="section-title">Thông tin công ty</h2>
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label for="companyName">Tên công ty</label>
+                                        <input type="text" id="companyName" class="form-control" value="RealEstate Company">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="companyAddress">Địa chỉ</label>
+                                        <textarea id="companyAddress" class="form-control" rows="3">123 Đường ABC, Quận 1, TP. Hồ Chí Minh</textarea>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="companyPhone">Số điện thoại</label>
+                                            <input type="text" id="companyPhone" class="form-control" value="0901234567">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="companyEmail">Email</label>
+                                            <input type="email" id="companyEmail" class="form-control" value="contact@realestatecompany.com">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="companyLogo">Logo công ty</label>
+                                        <div class="logo-upload">
+                                            <img src="img/logo.png" alt="Company Logo" id="logoPreview">
+                                            <div class="upload-actions">
+                                                <button type="button" class="btn btn-secondary">Thay đổi</button>
+                                                <input type="file" id="companyLogo" hidden>
+                                                <button type="button" class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2 class="section-title">Ngôn ngữ & Múi giờ</h2>
+                                <form class="settings-form">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="defaultLanguage">Ngôn ngữ mặc định</label>
+                                            <select id="defaultLanguage" class="form-control">
+                                                <option value="vi" selected>Tiếng Việt</option>
+                                                <option value="en">Tiếng Anh</option>
+                                                <option value="ja">Tiếng Nhật</option>
+                                                <option value="ko">Tiếng Hàn</option>
+                                                <option value="zh">Tiếng Trung</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="timezone">Múi giờ</label>
+                                            <select id="timezone" class="form-control">
+                                                <option value="Asia/Ho_Chi_Minh" selected>(GMT+7) Hồ Chí Minh</option>
+                                                <option value="Asia/Bangkok">(GMT+7) Bangkok</option>
+                                                <option value="Asia/Singapore">(GMT+8) Singapore</option>
+                                                <option value="Asia/Tokyo">(GMT+9) Tokyo</option>
+                                                <option value="Europe/London">(GMT+0) London</option>
+                                                <option value="America/New_York">(GMT-5) New York</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="dateFormat">Định dạng ngày</label>
+                                            <select id="dateFormat" class="form-control">
+                                                <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
+                                                <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                                                <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="currencyFormat">Định dạng tiền tệ</label>
+                                            <select id="currencyFormat" class="form-control">
+                                                <option value="vnd" selected>VND (đ)</option>
+                                                <option value="usd">USD ($)</option>
+                                                <option value="eur">EUR (€)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2 class="section-title">Cài đặt hiển thị</h2>
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label for="themeSetting">Giao diện</label>
+                                        <select id="themeSetting" class="form-control">
+                                            <option value="light" selected>Sáng</option>
+                                            <option value="dark">Tối</option>
+                                            <option value="auto">Tự động (theo hệ thống)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="colorSetting">Màu chủ đạo</label>
+                                        <div class="color-options">
+                                            <div class="color-option active" style="background-color: #4e73df;" data-color="blue"></div>
+                                            <div class="color-option" style="background-color: #1cc88a;" data-color="green"></div>
+                                            <div class="color-option" style="background-color: #36b9cc;" data-color="teal"></div>
+                                            <div class="color-option" style="background-color: #f6c23e;" data-color="yellow"></div>
+                                            <div class="color-option" style="background-color: #e74a3b;" data-color="red"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tùy chọn hiển thị</label>
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="showNotifications" checked>
+                                                <span class="checkbox-label">Hiển thị thông báo</span>
+                                            </label>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="showStatistics" checked>
+                                                <span class="checkbox-label">Hiển thị thống kê trên Dashboard</span>
+                                            </label>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="enableAnimations" checked>
+                                                <span class="checkbox-label">Bật hiệu ứng chuyển động</span>
+                                            </label>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="compactSidebar">
+                                                <span class="checkbox-label">Thu gọn thanh bên mặc định</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="settings-actions">
+                                <button class="btn btn-secondary">Đặt lại mặc định</button>
+                                <button class="btn btn-primary">Lưu thay đổi</button>
+                            </div>
+                        </div>
+
+                        <!-- Website Settings -->
+                        <div class="tab-content" id="website">
+                            <div class="settings-section">
+                                <h2 class="section-title">Cài đặt Website</h2>
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label for="siteName">Tên website</label>
+                                        <input type="text" id="siteName" class="form-control" value="RealEstate - Bất động sản uy tín">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="siteUrl">URL Website</label>
+                                            <input type="url" id="siteUrl" class="form-control" value="https://www.realestatecompany.com">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="siteFavicon">Favicon</label>
+                                            <div class="file-upload-inline">
+                                                <input type="text" class="form-control" value="favicon.ico" readonly>
+                                                <button type="button" class="btn btn-secondary">Thay đổi</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="metaDescription">Mô tả meta</label>
+                                        <textarea id="metaDescription" class="form-control" rows="2">Website cung cấp thông tin bất động sản uy tín, chất lượng tại Việt Nam. Tìm mua, bán, thuê bất động sản nhanh chóng và dễ dàng.</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="metaKeywords">Từ khóa meta</label>
+                                        <input type="text" id="metaKeywords" class="form-control" value="bất động sản, nhà đất, chung cư, biệt thự, mua bán nhà đất, cho thuê nhà đất">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cài đặt SEO</label>
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="enableSitemap" checked>
+                                                <span class="checkbox-label">Tự động tạo sitemap</span>
+                                            </label>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="enableRobots" checked>
+                                                <span class="checkbox-label">Cho phép robots.txt</span>
+                                            </label>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" id="enableSchemaMarkup" checked>
+                                                <span class="checkbox-label">Sử dụng Schema Markup</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2 class="section-title">Mạng xã hội</h2>
+                                <form class="settings-form">
+                                    <div class="form-group">
+                                        <label for="facebookUrl">Facebook</label>
+                                        <div class="input-with-icon">
+                                            <i class="fab fa-facebook"></i>
+                                            <input type="url" id="facebookUrl" class="form-control" value="https://www.facebook.com/realestatecompany">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="youtubeUrl">YouTube</label>
+                                        <div class="input-with-icon">
+                                            <i class="fab fa-youtube"></i>
+                                            <input type="url" id="youtubeUrl" class="form-control" value="https://www.youtube.com/realestatecompany">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="instagramUrl">Instagram</label>
+                                        <div class="input-with-icon">
+                                            <i class="fab fa-instagram"></i>
+                                            <input type="url" id="instagramUrl" class="form-control" value="https://www.instagram.com/realestatecompany">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="twitterUrl">Twitter</label>
+                                        <div class="input-with-icon">
+                                            <i class="fab fa-twitter"></i>
+                                            <input type="url" id="twitterUrl" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="settings-actions">
+                                <button class="btn btn-secondary">Đặt lại mặc định</button>
+                                <button class="btn btn-primary">Lưu thay đổi</button>
+                            </div>
+                        </div>
+
+                        <!-- Other tab contents would go here: users, email, payment, api, backup -->
+                        <div class="tab-content" id="users">
+                            <!-- User settings content -->
+                            <div class="settings-section">
+                                <h2 class="section-title">Đang tải nội dung...</h2>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="email">
+                            <!-- Email settings content -->
+                            <div class="settings-section">
+                                <h2 class="section-title">Đang tải nội dung...</h2>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="payment">
+                            <!-- Payment settings content -->
+                            <div class="settings-section">
+                                <h2 class="section-title">Đang tải nội dung...</h2>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="api">
+                            <!-- API settings content -->
+                            <div class="settings-section">
+                                <h2 class="section-title">Đang tải nội dung...</h2>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="backup">
+                            <!-- Backup settings content -->
+                            <div class="settings-section">
+                                <h2 class="section-title">Đang tải nội dung...</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/settings.js"></script>
+</body>
+</html> 

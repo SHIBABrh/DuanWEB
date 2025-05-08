@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ thống quản trị Bất Động Sản</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="img/logo.jpg" alt="Logo">
+                <h1>RealEstate Admin</h1>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username"><i class="fas fa-user"></i></label>
+                    <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
+                </div>
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-lock"></i></label>
+                    <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Ghi nhớ đăng nhập</label>
+                </div>
+                <button type="submit" class="btn-primary">Đăng nhập</button>
+                <div class="forgot-password">
+                    <a href="#">Quên mật khẩu?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html> 

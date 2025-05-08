@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đánh giá - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Quản lý đánh giá</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Quản lý đánh giá</li>
+                    </ul>
+                </div>
+
+                <!-- Reviews Statistics -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>246</h3>
+                            <p>Tổng số đánh giá</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>4.7/5</h3>
+                            <p>Điểm trung bình</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon properties">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Đánh giá chờ duyệt</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon transactions">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>Báo cáo vi phạm</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter and Search Bar -->
+                <div class="filter-container">
+                    <div class="search-box">
+                        <input type="text" id="reviewSearch" placeholder="Tìm kiếm theo nội dung, người dùng...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="ratingFilter">
+                            <option value="">Đánh giá sao</option>
+                            <option value="5">5 sao</option>
+                            <option value="4">4 sao</option>
+                            <option value="3">3 sao</option>
+                            <option value="2">2 sao</option>
+                            <option value="1">1 sao</option>
+                        </select>
+                        <select id="statusFilter">
+                            <option value="">Trạng thái</option>
+                            <option value="approved">Đã duyệt</option>
+                            <option value="pending">Chờ duyệt</option>
+                            <option value="rejected">Từ chối</option>
+                            <option value="reported">Bị báo cáo</option>
+                        </select>
+                        <select id="dateFilter">
+                            <option value="">Thời gian</option>
+                            <option value="today">Hôm nay</option>
+                            <option value="week">Tuần này</option>
+                            <option value="month">Tháng này</option>
+                            <option value="year">Năm nay</option>
+                        </select>
+                        <select id="propertyFilter">
+                            <option value="">Bất động sản</option>
+                            <option value="1">Chung cư Star City</option>
+                            <option value="2">Biệt thự Vinhomes</option>
+                            <option value="3">Nhà phố Thảo Điền</option>
+                            <option value="4">Căn hộ Masteri</option>
+                        </select>
+                        <button class="btn filter-btn">Lọc</button>
+                    </div>
+                </div>
+
+                <!-- Reviews Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách đánh giá</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-secondary" id="exportReviews">
+                                <i class="fas fa-download"></i> Xuất Excel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="reviews-list">
+                            <!-- Review Item - Pending -->
+                            <div class="review-item pending">
+                                <div class="review-header">
+                                    <div class="user-info">
+                                        <img src="img/user.jpg" alt="User Avatar">
+                                        <div class="user-details">
+                                            <h4>Nguyễn Văn A</h4>
+                                            <div class="review-meta">
+                                                <span class="property-name">Chung cư Star City</span>
+                                                <span class="review-time">20/04/2023</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <span class="rating-text">5.0</span>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>Khu căn hộ rất đẹp và tiện nghi. Dịch vụ chăm sóc khách hàng tuyệt vời, đội ngũ nhân viên nhiệt tình, hỗ trợ tôi rất nhiều trong quá trình mua nhà. Vị trí thuận tiện, gần các tiện ích công cộng. Rất hài lòng với căn hộ mới của gia đình.</p>
+                                </div>
+                                <div class="review-images">
+                                    <div class="review-image">
+                                        <img src="img/property-1.jpg" alt="Review Image">
+                                    </div>
+                                    <div class="review-image">
+                                        <img src="img/property-2.jpg" alt="Review Image">
+                                    </div>
+                                </div>
+                                <div class="review-status">
+                                    <span class="status pending">Chờ duyệt</span>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn btn-view" onclick="viewReviewDetails(1)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-approve" onclick="approveReview(1)">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-reject" onclick="rejectReview(1)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteReview(1)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Review Item - Approved -->
+                            <div class="review-item approved">
+                                <div class="review-header">
+                                    <div class="user-info">
+                                        <img src="img/user2.jpg" alt="User Avatar">
+                                        <div class="user-details">
+                                            <h4>Trần Thị B</h4>
+                                            <div class="review-meta">
+                                                <span class="property-name">Biệt thự Vinhomes</span>
+                                                <span class="review-time">18/04/2023</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <span class="rating-text">4.0</span>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>Biệt thự rất thoáng mát và yên tĩnh. Không gian sống rộng rãi, thiết kế hiện đại và tinh tế. Khu vực an ninh tốt, cảnh quan đẹp. Tuy nhiên, giá dịch vụ hơi cao so với mặt bằng chung.</p>
+                                </div>
+                                <div class="review-status">
+                                    <span class="status active">Đã duyệt</span>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn btn-view" onclick="viewReviewDetails(2)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-reply" onclick="replyToReview(2)">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteReview(2)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Review Item - Reported -->
+                            <div class="review-item reported">
+                                <div class="review-header">
+                                    <div class="user-info">
+                                        <img src="img/user3.jpg" alt="User Avatar">
+                                        <div class="user-details">
+                                            <h4>Lê Văn C</h4>
+                                            <div class="review-meta">
+                                                <span class="property-name">Nhà phố Thảo Điền</span>
+                                                <span class="review-time">15/04/2023</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <span class="rating-text">2.0</span>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>Tôi không hài lòng với căn nhà này. Chất lượng xây dựng kém, nhiều chỗ bị thấm nước. Nhân viên hỗ trợ không nhiệt tình. [Nội dung đã bị ẩn do vi phạm quy định]</p>
+                                </div>
+                                <div class="review-status">
+                                    <span class="status inactive">Bị báo cáo</span>
+                                </div>
+                                <div class="review-reports">
+                                    <span class="report-count">3 báo cáo</span>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn btn-view" onclick="viewReviewDetails(3)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-approve" onclick="approveReview(3)">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-reject" onclick="rejectReview(3)">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteReview(3)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Review Item - With Reply -->
+                            <div class="review-item approved">
+                                <div class="review-header">
+                                    <div class="user-info">
+                                        <img src="img/user4.jpg" alt="User Avatar">
+                                        <div class="user-details">
+                                            <h4>Phạm Thị D</h4>
+                                            <div class="review-meta">
+                                                <span class="property-name">Căn hộ Masteri</span>
+                                                <span class="review-time">12/04/2023</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <span class="rating-text">4.0</span>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>Căn hộ rất đẹp, thiết kế thông minh và tối ưu không gian. Cửa sổ lớn giúp đón nhiều ánh sáng tự nhiên. Tuy nhiên, cách âm giữa các căn hộ chưa thực sự tốt.</p>
+                                </div>
+                                <div class="review-reply">
+                                    <div class="reply-header">
+                                        <img src="img/admin-avatar.jpg" alt="Admin Avatar">
+                                        <div class="reply-info">
+                                            <h5>Admin</h5>
+                                            <span class="reply-time">13/04/2023</span>
+                                        </div>
+                                    </div>
+                                    <div class="reply-content">
+                                        <p>Cảm ơn quý khách đã đánh giá về căn hộ Masteri. Chúng tôi rất vui khi quý khách hài lòng với thiết kế của căn hộ. Về vấn đề cách âm, chúng tôi sẽ ghi nhận góp ý và cải thiện trong các dự án tiếp theo. Xin cảm ơn!</p>
+                                    </div>
+                                </div>
+                                <div class="review-status">
+                                    <span class="status active">Đã duyệt</span>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn btn-view" onclick="viewReviewDetails(4)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-edit-reply" onclick="editReply(4)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteReview(4)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Review Item - Rejected -->
+                            <div class="review-item rejected">
+                                <div class="review-header">
+                                    <div class="user-info">
+                                        <img src="img/user5.jpg" alt="User Avatar">
+                                        <div class="user-details">
+                                            <h4>Hoàng Văn E</h4>
+                                            <div class="review-meta">
+                                                <span class="property-name">Đất nền Bình Chánh</span>
+                                                <span class="review-time">10/04/2023</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="review-rating">
+                                        <span class="rating-text">1.0</span>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p>Nội dung đánh giá này đã bị từ chối do vi phạm quy định của chúng tôi.</p>
+                                </div>
+                                <div class="review-status">
+                                    <span class="status inactive">Từ chối</span>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn btn-view" onclick="viewReviewDetails(5)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-approve" onclick="approveReview(5)">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteReview(5)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                <div class="pagination-records">
+                                    Hiển thị <strong>1-5</strong> của <strong>36</strong> bản ghi
+                                </div>
+                                <div class="pagination-limits">
+                                    <span>Hiển thị:</span>
+                                    <select id="recordsPerPage">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pagination">
+                                <button class="pagination-btn first" disabled>
+                                    <i class="fas fa-angle-double-left"></i> Đầu
+                                </button>
+                                <button class="pagination-btn prev" id="prevPage" disabled>
+                                    <i class="fas fa-chevron-left"></i> Trước
+                                </button>
+                                <div class="page-numbers">
+                                    <button class="page-number active">1</button>
+                                    <button class="page-number">2</button>
+                                    <button class="page-number">3</button>
+                                    <button class="page-number">4</button>
+                                    <button class="page-number">5</button>
+                                    <span>...</span>
+                                    <button class="page-number">8</button>
+                                </div>
+                                <button class="pagination-btn next" id="nextPage">
+                                    Sau <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <button class="pagination-btn last">
+                                    Cuối <i class="fas fa-angle-double-right"></i>
+                                </button>
+                                <div class="pagination-goto">
+                                    <span>Tới trang:</span>
+                                    <input type="number" min="1" max="8" value="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Detail Modal -->
+    <div class="modal" id="reviewDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Chi tiết đánh giá</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="review-detail">
+                    <div class="detail-section">
+                        <h3>Thông tin người dùng</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Tên người dùng:</span>
+                                <span class="info-value" id="reviewUserName">Nguyễn Văn A</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email:</span>
+                                <span class="info-value" id="reviewUserEmail">nguyenvana@gmail.com</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Số điện thoại:</span>
+                                <span class="info-value" id="reviewUserPhone">0901234567</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Ngày đăng ký:</span>
+                                <span class="info-value" id="reviewUserJoined">01/01/2023</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Thông tin bất động sản</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Tên BĐS:</span>
+                                <span class="info-value" id="reviewPropertyName">Chung cư Star City</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Mã BĐS:</span>
+                                <span class="info-value" id="reviewPropertyCode">PROP-123</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Địa chỉ:</span>
+                                <span class="info-value" id="reviewPropertyAddress">456 Đường XYZ, Quận 2, TP.HCM</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Loại BĐS:</span>
+                                <span class="info-value" id="reviewPropertyType">Căn hộ chung cư</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Thông tin đánh giá</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Đánh giá sao:</span>
+                                <span class="info-value" id="reviewRating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    (5.0)
+                                </span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Ngày đánh giá:</span>
+                                <span class="info-value" id="reviewDate">20/04/2023</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Trạng thái:</span>
+                                <span class="info-value status pending" id="reviewStatus">Chờ duyệt</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">IP người dùng:</span>
+                                <span class="info-value" id="reviewUserIP">192.168.1.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h3>Nội dung đánh giá</h3>
+                        <div class="review-text" id="reviewContent">
+                            <p>Khu căn hộ rất đẹp và tiện nghi. Dịch vụ chăm sóc khách hàng tuyệt vời, đội ngũ nhân viên nhiệt tình, hỗ trợ tôi rất nhiều trong quá trình mua nhà. Vị trí thuận tiện, gần các tiện ích công cộng. Rất hài lòng với căn hộ mới của gia đình.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section" id="reviewImagesSection">
+                        <h3>Hình ảnh đính kèm</h3>
+                        <div class="review-images-gallery">
+                            <div class="gallery-image">
+                                <img src="img/property-1.jpg" alt="Review Image">
+                            </div>
+                            <div class="gallery-image">
+                                <img src="img/property-2.jpg" alt="Review Image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section" id="reviewReplySection" style="display: none;">
+                        <h3>Phản hồi của quản trị viên</h3>
+                        <div class="review-reply-detail">
+                            <div class="reply-meta">
+                                <span class="reply-author">Admin</span>
+                                <span class="reply-date">21/04/2023</span>
+                            </div>
+                            <div class="reply-text" id="reviewReplyContent">
+                                <p>Cảm ơn bạn đã đánh giá về dự án của chúng tôi. Chúng tôi rất vui khi bạn hài lòng với căn hộ và dịch vụ. Chúc bạn có những trải nghiệm tuyệt vời tại ngôi nhà mới!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-section" id="reviewReportsSection" style="display: none;">
+                        <h3>Báo cáo vi phạm</h3>
+                        <div class="reports-list">
+                            <div class="report-item">
+                                <div class="report-header">
+                                    <span class="report-user">user123@gmail.com</span>
+                                    <span class="report-date">19/04/2023</span>
+                                </div>
+                                <div class="report-reason">
+                                    Nội dung không phù hợp, chứa ngôn từ xúc phạm.
+                                </div>
+                            </div>
+                            <div class="report-item">
+                                <div class="report-header">
+                                    <span class="report-user">user456@gmail.com</span>
+                                    <span class="report-date">19/04/2023</span>
+                                </div>
+                                <div class="report-reason">
+                                    Thông tin sai lệch về dự án.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="left-actions">
+                    <button class="btn btn-delete" id="modalDeleteReview">Xóa đánh giá</button>
+                </div>
+                <div class="right-actions">
+                    <button class="btn btn-secondary close-modal">Đóng</button>
+                    <button class="btn btn-reject" id="modalRejectReview">Từ chối</button>
+                    <button class="btn btn-view" id="modalReplyReview">Phản hồi</button>
+                    <button class="btn btn-primary" id="modalApproveReview">Duyệt đánh giá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reply Modal -->
+    <div class="modal" id="replyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Phản hồi đánh giá</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="original-review">
+                    <div class="review-header">
+                        <div class="user-info">
+                            <img src="img/user2.jpg" alt="User Avatar">
+                            <div class="user-details">
+                                <h4>Trần Thị B</h4>
+                                <div class="review-meta">
+                                    <span class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        (4.0)
+                                    </span>
+                                    <span class="review-time">18/04/2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p>Biệt thự rất thoáng mát và yên tĩnh. Không gian sống rộng rãi, thiết kế hiện đại và tinh tế. Khu vực an ninh tốt, cảnh quan đẹp. Tuy nhiên, giá dịch vụ hơi cao so với mặt bằng chung.</p>
+                    </div>
+                </div>
+                <div class="reply-form">
+                    <div class="form-group">
+                        <label for="replyContent">Nội dung phản hồi</label>
+                        <textarea id="replyContent" rows="6" placeholder="Nhập nội dung phản hồi..."></textarea>
+                    </div>
+                    <div class="form-tips">
+                        <h4>Lưu ý:</h4>
+                        <ul>
+                            <li>Phản hồi nên mang tính chuyên nghiệp và lịch sự</li>
+                            <li>Cảm ơn khách hàng đã dành thời gian đánh giá</li>
+                            <li>Không chia sẻ thông tin cá nhân trong phản hồi</li>
+                            <li>Nêu rõ các bước sẽ thực hiện để giải quyết vấn đề (nếu có)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Hủy</button>
+                <button class="btn btn-primary" id="saveReply">Gửi phản hồi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reject Review Modal -->
+    <div class="modal" id="rejectReviewModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Từ chối đánh giá</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rejectReason">Lý do từ chối</label>
+                    <select id="rejectReason">
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="inappropriate">Nội dung không phù hợp</option>
+                        <option value="offensive">Ngôn từ xúc phạm</option>
+                        <option value="spam">Spam / Quảng cáo</option>
+                        <option value="false">Thông tin sai lệch</option>
+                        <option value="duplicate">Đánh giá trùng lặp</option>
+                        <option value="other">Lý do khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rejectNote">Ghi chú (không hiển thị cho người dùng)</label>
+                    <textarea id="rejectNote" rows="4" placeholder="Nhập ghi chú nội bộ..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notifyUser">
+                        <input type="checkbox" id="notifyUser" checked>
+                        Thông báo cho người dùng qua email
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Hủy</button>
+                <button class="btn btn-reject" id="confirmReject">Xác nhận từ chối</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/reviews.js"></script>
+</body>
+</html> 

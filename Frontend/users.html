@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Quản lý người dùng</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Quản lý người dùng</li>
+                    </ul>
+                </div>
+
+                <!-- Users Management -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách người dùng</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-view" id="btnAddUser">
+                                <i class="fas fa-plus"></i> Thêm người dùng
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="filters">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Tìm kiếm..." id="searchUser">
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="filterRole">
+                                        <option value="">Tất cả vai trò</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="manager">Quản lý</option>
+                                        <option value="agent">Môi giới</option>
+                                        <option value="client">Khách hàng</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="filterStatus">
+                                        <option value="">Tất cả trạng thái</option>
+                                        <option value="active">Hoạt động</option>
+                                        <option value="inactive">Không hoạt động</option>
+                                        <option value="pending">Chờ xác thực</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Họ tên</th>
+                                        <th>Email</th>
+                                        <th>Vai trò</th>
+                                        <th>Ngày đăng ký</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#UID001</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Nguyễn Văn A
+                                            </div>
+                                        </td>
+                                        <td>nguyenvana@example.com</td>
+                                        <td>Admin</td>
+                                        <td>01/01/2023</td>
+                                        <td><span class="status active">Hoạt động</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-view" onclick="viewUser('UID001')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-edit" onclick="editUser('UID001')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-delete" onclick="deleteUser('UID001')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#UID002</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Trần Thị B
+                                            </div>
+                                        </td>
+                                        <td>tranthib@example.com</td>
+                                        <td>Quản lý</td>
+                                        <td>15/01/2023</td>
+                                        <td><span class="status active">Hoạt động</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-view" onclick="viewUser('UID002')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-edit" onclick="editUser('UID002')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-delete" onclick="deleteUser('UID002')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#UID003</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Lê Văn C
+                                            </div>
+                                        </td>
+                                        <td>levanc@example.com</td>
+                                        <td>Môi giới</td>
+                                        <td>22/01/2023</td>
+                                        <td><span class="status inactive">Không hoạt động</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-view" onclick="viewUser('UID003')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-edit" onclick="editUser('UID003')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-delete" onclick="deleteUser('UID003')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#UID004</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Phạm Thị D
+                                            </div>
+                                        </td>
+                                        <td>phamthid@example.com</td>
+                                        <td>Khách hàng</td>
+                                        <td>05/02/2023</td>
+                                        <td><span class="status active">Hoạt động</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-view" onclick="viewUser('UID004')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-edit" onclick="editUser('UID004')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-delete" onclick="deleteUser('UID004')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#UID005</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Hoàng Văn E
+                                            </div>
+                                        </td>
+                                        <td>hoangvane@example.com</td>
+                                        <td>Khách hàng</td>
+                                        <td>15/02/2023</td>
+                                        <td><span class="status pending">Chờ xác thực</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="btn btn-view" onclick="viewUser('UID005')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-edit" onclick="editUser('UID005')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-delete" onclick="deleteUser('UID005')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination sẽ được thêm vào tự động bởi JavaScript -->
+                        <div id="pagination-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="userModalTitle">Thêm người dùng mới</h3>
+                <button class="modal-close" id="closeUserModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="fullName">Họ tên</label>
+                                <input type="text" id="fullName" name="fullName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label>
+                                <input type="tel" id="phone" name="phone" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="dob">Ngày sinh</label>
+                                <input type="date" id="dob" name="dob" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="password">Mật khẩu</label>
+                                <input type="password" id="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="role">Vai trò</label>
+                                <select id="role" name="role" class="form-control" required>
+                                    <option value="">-- Chọn vai trò --</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Quản lý</option>
+                                    <option value="agent">Môi giới</option>
+                                    <option value="client">Khách hàng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="status">Trạng thái</label>
+                                <select id="status" name="status" class="form-control" required>
+                                    <option value="active">Hoạt động</option>
+                                    <option value="inactive">Không hoạt động</option>
+                                    <option value="pending">Chờ xác thực</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Ảnh đại diện</label>
+                        <div class="upload-container" id="avatarUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Kéo thả ảnh vào đây hoặc nhấn để chọn ảnh</p>
+                            <input type="file" id="avatar" name="avatar" style="display: none;">
+                        </div>
+                        <div class="image-preview" id="avatarPreview" style="display: none;">
+                            <div class="image-item">
+                                <img id="previewImg" src="#" alt="Avatar Preview">
+                                <div class="delete-image" id="removeAvatar">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancelUser">Hủy</button>
+                <button class="btn btn-view" id="saveUser">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View User Modal -->
+    <div class="modal" id="viewUserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Chi tiết người dùng</h3>
+                <button class="modal-close" id="closeViewUserModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="user-details" style="text-align: center; margin-bottom: 20px;">
+                    <img id="userAvatar" src="img/user.jpg" alt="User Avatar" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
+                    <h3 id="userName">Nguyễn Văn A</h3>
+                    <p id="userRole" style="color: var(--secondary-color);">Admin</p>
+                </div>
+                <div class="user-info">
+                    <div class="info-item">
+                        <span class="info-label">Email:</span>
+                        <span id="userEmail">nguyenvana@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Số điện thoại:</span>
+                        <span id="userPhone">0123456789</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ngày sinh:</span>
+                        <span id="userDob">01/01/1990</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Địa chỉ:</span>
+                        <span id="userAddress">123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ngày đăng ký:</span>
+                        <span id="userRegDate">01/01/2023</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Trạng thái:</span>
+                        <span id="userStatus"><span class="status active">Hoạt động</span></span>
+                    </div>
+                </div>
+                <div class="user-stats" style="margin-top: 20px;">
+                    <h4>Thống kê hoạt động</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
+                            <h5 style="margin: 0 0 5px 0;">Bất động sản</h5>
+                            <p style="margin: 0; font-size: 18px; font-weight: 600; color: var(--secondary-color);">12</p>
+                        </div>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
+                            <h5 style="margin: 0 0 5px 0;">Giao dịch</h5>
+                            <p style="margin: 0; font-size: 18px; font-weight: 600; color: var(--accent-color);">5</p>
+                        </div>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; text-align: center;">
+                            <h5 style="margin: 0 0 5px 0;">Đánh giá</h5>
+                            <p style="margin: 0; font-size: 18px; font-weight: 600; color: var(--success-color);">8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-edit" onclick="editUser('UID001')">Chỉnh sửa</button>
+                <button class="btn" id="closeUserDetail">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Xác nhận xóa</h3>
+                <button class="modal-close" id="closeDeleteModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa người dùng này? Thao tác này không thể hoàn tác.</p>
+                <div id="deleteErrorMessage" class="error-message" style="color: #dc3545; margin-top: 10px; display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" id="cancelDelete">Hủy</button>
+                <button class="btn btn-delete" id="confirmDelete">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+    <script src="js/users.js"></script>
+</body>
+</html> 

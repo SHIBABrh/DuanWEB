@@ -1,0 +1,30 @@
+package com.realestate.config;
+
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistrar;
+import org.springframework.boot.web.server.ErrorPageRegistry;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+
+@Configuration
+public class ErrorPageConfig {
+
+    @Bean
+    public ErrorPageRegistrar errorPageRegistrar() {
+        return new CustomErrorPageRegistrar();
+    }
+
+    private static class CustomErrorPageRegistrar implements ErrorPageRegistrar {
+        @Override
+        public void registerErrorPages(ErrorPageRegistry registry) {
+            // Map 404 errors to a custom error page
+            registry.addErrorPages(
+                new ErrorPage(HttpStatus.NOT_FOUND, "/error/404"),
+                new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500"),
+                new ErrorPage(HttpStatus.FORBIDDEN, "/error/403"),
+                new ErrorPage(HttpStatus.UNAUTHORIZED, "/error/401")
+            );
+        }
+    }
+} 

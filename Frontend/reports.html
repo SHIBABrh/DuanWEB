@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo cáo thống kê - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Báo cáo thống kê</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Báo cáo thống kê</li>
+                    </ul>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="report-filter">
+                    <div class="date-range">
+                        <label>Khoảng thời gian:</label>
+                        <select id="dateRangeSelect">
+                            <option value="today">Hôm nay</option>
+                            <option value="yesterday">Hôm qua</option>
+                            <option value="7days" selected>7 ngày qua</option>
+                            <option value="30days">30 ngày qua</option>
+                            <option value="thisMonth">Tháng này</option>
+                            <option value="lastMonth">Tháng trước</option>
+                            <option value="thisYear">Năm nay</option>
+                            <option value="custom">Tùy chỉnh</option>
+                        </select>
+                        <div id="customDateRange" style="display: none;">
+                            <div class="date-inputs">
+                                <input type="date" id="startDate">
+                                <span>đến</span>
+                                <input type="date" id="endDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="btn btn-secondary" id="refreshReport">
+                            <i class="fas fa-sync-alt"></i> Cập nhật
+                        </button>
+                        <button class="btn btn-primary" id="exportReport">
+                            <i class="fas fa-download"></i> Xuất báo cáo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>18.5 tỷ</h3>
+                            <p>Doanh thu</p>
+                            <span class="stat-change positive">+12.3% <i class="fas fa-arrow-up"></i></span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon transactions">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>35</h3>
+                            <p>Số đơn hàng</p>
+                            <span class="stat-change positive">+8.7% <i class="fas fa-arrow-up"></i></span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon properties">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>42</h3>
+                            <p>BĐS đã bán</p>
+                            <span class="stat-change positive">+5.2% <i class="fas fa-arrow-up"></i></span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>185</h3>
+                            <p>Khách hàng mới</p>
+                            <span class="stat-change negative">-3.5% <i class="fas fa-arrow-down"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Analysis Chart -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Phân tích doanh thu</h3>
+                                <div class="card-tools">
+                                    <select id="revenueChartType">
+                                        <option value="daily">Theo ngày</option>
+                                        <option value="weekly">Theo tuần</option>
+                                        <option value="monthly">Theo tháng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="revenueChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Phân phối doanh thu</h3>
+                                <div class="card-tools">
+                                    <select id="revenueDistributionType">
+                                        <option value="category">Theo danh mục</option>
+                                        <option value="location">Theo khu vực</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="revenuePieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Performance and Traffic Sources -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Top bất động sản</h3>
+                                <div class="card-tools">
+                                    <select id="propertyMetric">
+                                        <option value="views">Lượt xem</option>
+                                        <option value="sales">Doanh số</option>
+                                        <option value="inquiries">Yêu cầu tư vấn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Bất động sản</th>
+                                                <th>Danh mục</th>
+                                                <th>Giá trị</th>
+                                                <th>So với TB</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="property-info">
+                                                        <img src="img/property-1.jpg" alt="Property">
+                                                        <span>Chung cư Star City</span>
+                                                    </div>
+                                                </td>
+                                                <td>Căn hộ chung cư</td>
+                                                <td>2,850</td>
+                                                <td><span class="change positive">+125%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="property-info">
+                                                        <img src="img/property-2.jpg" alt="Property">
+                                                        <span>Biệt thự Vinhomes</span>
+                                                    </div>
+                                                </td>
+                                                <td>Biệt thự, liền kề</td>
+                                                <td>1,920</td>
+                                                <td><span class="change positive">+85%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="property-info">
+                                                        <img src="img/property-3.jpg" alt="Property">
+                                                        <span>Nhà phố Thảo Điền</span>
+                                                    </div>
+                                                </td>
+                                                <td>Nhà riêng</td>
+                                                <td>1,740</td>
+                                                <td><span class="change positive">+68%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="property-info">
+                                                        <img src="img/property-4.jpg" alt="Property">
+                                                        <span>Căn hộ Masteri</span>
+                                                    </div>
+                                                </td>
+                                                <td>Căn hộ chung cư</td>
+                                                <td>1,580</td>
+                                                <td><span class="change positive">+45%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="property-info">
+                                                        <img src="img/property-5.jpg" alt="Property">
+                                                        <span>Đất nền Bình Chánh</span>
+                                                    </div>
+                                                </td>
+                                                <td>Đất nền dự án</td>
+                                                <td>1,250</td>
+                                                <td><span class="change positive">+12%</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Nguồn lưu lượng truy cập</h3>
+                                <div class="card-tools">
+                                    <button class="btn btn-sm" id="trafficLastWeek">7 ngày</button>
+                                    <button class="btn btn-sm active" id="trafficLastMonth">30 ngày</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="trafficSourcesChart"></canvas>
+                                </div>
+                                <div class="traffic-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #4e73df;"></span>
+                                        <span class="legend-label">Tìm kiếm</span>
+                                        <span class="legend-value">42.8%</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #1cc88a;"></span>
+                                        <span class="legend-label">Trực tiếp</span>
+                                        <span class="legend-value">27.5%</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #36b9cc;"></span>
+                                        <span class="legend-label">Mạng xã hội</span>
+                                        <span class="legend-value">18.3%</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-color" style="background-color: #f6c23e;"></span>
+                                        <span class="legend-label">Giới thiệu</span>
+                                        <span class="legend-value">11.4%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Activity and Conversion Stats -->
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Số liệu chuyển đổi</h3>
+                                <div class="card-tools">
+                                    <select id="conversionTimeRange">
+                                        <option value="7days">7 ngày qua</option>
+                                        <option value="30days" selected>30 ngày qua</option>
+                                        <option value="90days">90 ngày qua</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="conversion-stats">
+                                    <div class="conversion-funnel">
+                                        <div class="funnel-step" style="width: 100%;">
+                                            <div class="step-label">Lượt truy cập</div>
+                                            <div class="step-value">12,452</div>
+                                        </div>
+                                        <div class="funnel-step" style="width: 75%;">
+                                            <div class="step-label">Xem chi tiết BĐS</div>
+                                            <div class="step-value">8,723</div>
+                                            <div class="step-rate">70.1%</div>
+                                        </div>
+                                        <div class="funnel-step" style="width: 40%;">
+                                            <div class="step-label">Yêu cầu tư vấn</div>
+                                            <div class="step-value">3,245</div>
+                                            <div class="step-rate">37.2%</div>
+                                        </div>
+                                        <div class="funnel-step" style="width: 12%;">
+                                            <div class="step-label">Đặt lịch xem</div>
+                                            <div class="step-value">924</div>
+                                            <div class="step-rate">28.5%</div>
+                                        </div>
+                                        <div class="funnel-step" style="width: 5%;">
+                                            <div class="step-label">Giao dịch</div>
+                                            <div class="step-value">156</div>
+                                            <div class="step-rate">16.9%</div>
+                                        </div>
+                                    </div>
+                                    <div class="conversion-metrics">
+                                        <div class="metric-card">
+                                            <div class="metric-value">1.25%</div>
+                                            <div class="metric-label">Tỷ lệ chuyển đổi tổng</div>
+                                            <div class="metric-change positive">+0.3% <i class="fas fa-arrow-up"></i></div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-value">4:32</div>
+                                            <div class="metric-label">Thời gian trung bình</div>
+                                            <div class="metric-change positive">+0:45 <i class="fas fa-arrow-up"></i></div>
+                                        </div>
+                                        <div class="metric-card">
+                                            <div class="metric-value">62.5%</div>
+                                            <div class="metric-label">Tỷ lệ thoát</div>
+                                            <div class="metric-change negative">+3.2% <i class="fas fa-arrow-up"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Hoạt động người dùng</h3>
+                                <div class="card-tools">
+                                    <button class="btn btn-sm" id="userActivityToday">Hôm nay</button>
+                                    <button class="btn btn-sm active" id="userActivity7days">7 ngày</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="user-activity-chart">
+                                    <canvas id="userActivityChart"></canvas>
+                                </div>
+                                <div class="activity-stats">
+                                    <div class="activity-item">
+                                        <div class="activity-icon"><i class="fas fa-search"></i></div>
+                                        <div class="activity-details">
+                                            <div class="activity-label">Tìm kiếm</div>
+                                            <div class="activity-value">15,342</div>
+                                        </div>
+                                        <div class="activity-change positive">+18.2%</div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon"><i class="fas fa-bookmark"></i></div>
+                                        <div class="activity-details">
+                                            <div class="activity-label">Lưu BĐS</div>
+                                            <div class="activity-value">4,721</div>
+                                        </div>
+                                        <div class="activity-change positive">+12.7%</div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon"><i class="fas fa-comments"></i></div>
+                                        <div class="activity-details">
+                                            <div class="activity-label">Bình luận</div>
+                                            <div class="activity-value">2,103</div>
+                                        </div>
+                                        <div class="activity-change negative">-5.3%</div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon"><i class="fas fa-share-alt"></i></div>
+                                        <div class="activity-details">
+                                            <div class="activity-label">Chia sẻ</div>
+                                            <div class="activity-value">1,258</div>
+                                        </div>
+                                        <div class="activity-change positive">+21.5%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Export Options -->
+                <div class="card export-options">
+                    <div class="card-header">
+                        <h3 class="card-title">Tùy chọn xuất báo cáo</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="export-types">
+                            <div class="form-group">
+                                <label>Loại báo cáo:</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="reportRevenue" checked>
+                                        <span class="checkbox-label">Doanh thu</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="reportProperties" checked>
+                                        <span class="checkbox-label">Bất động sản</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="reportUsers" checked>
+                                        <span class="checkbox-label">Người dùng</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="reportTraffic" checked>
+                                        <span class="checkbox-label">Lưu lượng</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" id="reportConversions" checked>
+                                        <span class="checkbox-label">Chuyển đổi</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Định dạng:</label>
+                                <div class="radio-group">
+                                    <label class="radio-item">
+                                        <input type="radio" name="exportFormat" value="pdf" checked>
+                                        <span class="radio-label">PDF</span>
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="exportFormat" value="excel">
+                                        <span class="radio-label">Excel</span>
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="exportFormat" value="csv">
+                                        <span class="radio-label">CSV</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="export-actions">
+                            <button class="btn btn-secondary" id="scheduleReport">
+                                <i class="fas fa-clock"></i> Lên lịch báo cáo
+                            </button>
+                            <button class="btn btn-primary" id="downloadFullReport">
+                                <i class="fas fa-download"></i> Tải xuống báo cáo đầy đủ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Report Modal -->
+    <div class="modal" id="scheduleReportModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>Lên lịch báo cáo</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleReportForm">
+                    <div class="form-group">
+                        <label for="reportName">Tên báo cáo</label>
+                        <input type="text" id="reportName" class="form-control" placeholder="Báo cáo doanh thu hàng tháng">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportFrequency">Tần suất</label>
+                        <select id="reportFrequency" class="form-control">
+                            <option value="daily">Hàng ngày</option>
+                            <option value="weekly">Hàng tuần</option>
+                            <option value="monthly" selected>Hàng tháng</option>
+                            <option value="quarterly">Hàng quý</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportRecipients">Người nhận (Email)</label>
+                        <textarea id="reportRecipients" class="form-control" rows="2" placeholder="email1@example.com, email2@example.com"></textarea>
+                        <small class="form-text">Nhập địa chỉ email, phân cách bởi dấu phẩy</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportFormat">Định dạng</label>
+                        <select id="reportFormat" class="form-control">
+                            <option value="pdf">PDF</option>
+                            <option value="excel">Excel</option>
+                            <option value="csv">CSV</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung báo cáo</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="scheduleRevenue" checked>
+                                <span class="checkbox-label">Doanh thu</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="scheduleProperties" checked>
+                                <span class="checkbox-label">Bất động sản</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="scheduleUsers" checked>
+                                <span class="checkbox-label">Người dùng</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="scheduleTraffic">
+                                <span class="checkbox-label">Lưu lượng</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="scheduleConversions">
+                                <span class="checkbox-label">Chuyển đổi</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Hủy</button>
+                <button class="btn btn-primary" id="saveSchedule">Lưu lịch</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/reports.js"></script>
+</body>
+</html> 

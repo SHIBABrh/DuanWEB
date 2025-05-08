@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Quản lý đơn hàng</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Quản lý đơn hàng</li>
+                    </ul>
+                </div>
+
+                <!-- Filter and Search Bar -->
+                <div class="filter-container">
+                    <div class="search-box">
+                        <input type="text" id="orderSearch" placeholder="Tìm kiếm theo ID, khách hàng...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="statusFilter">
+                            <option value="">Trạng thái đơn hàng</option>
+                            <option value="pending">Chờ xử lý</option>
+                            <option value="processing">Đang xử lý</option>
+                            <option value="completed">Hoàn thành</option>
+                            <option value="cancelled">Đã hủy</option>
+                        </select>
+                        <select id="dateFilter">
+                            <option value="">Thời gian</option>
+                            <option value="today">Hôm nay</option>
+                            <option value="yesterday">Hôm qua</option>
+                            <option value="week">Tuần này</option>
+                            <option value="month">Tháng này</option>
+                        </select>
+                        <button class="btn filter-btn">Lọc</button>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách đơn hàng</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-primary" id="exportOrders">
+                                <i class="fas fa-download"></i> Xuất Excel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="selectAll"></th>
+                                        <th>ID</th>
+                                        <th>Khách hàng</th>
+                                        <th>Bất động sản</th>
+                                        <th>Loại</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orderTableBody">
+                                    <tr>
+                                        <td><input type="checkbox" class="order-checkbox"></td>
+                                        <td>#ORD-001</td>
+                                        <td>Nguyễn Văn A</td>
+                                        <td>Chung cư Star City</td>
+                                        <td>Mua</td>
+                                        <td>20/04/2023</td>
+                                        <td>3.5 tỷ VNĐ</td>
+                                        <td><span class="status active">Hoàn thành</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="view-btn" data-id="ORD-001"><i class="fas fa-eye"></i></button>
+                                                <button class="edit-btn" data-id="ORD-001"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn" data-id="ORD-001"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="order-checkbox"></td>
+                                        <td>#ORD-002</td>
+                                        <td>Trần Thị B</td>
+                                        <td>Biệt thự Vinhomes</td>
+                                        <td>Thuê</td>
+                                        <td>19/04/2023</td>
+                                        <td>25 triệu VNĐ/tháng</td>
+                                        <td><span class="status pending">Chờ xử lý</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="view-btn" data-id="ORD-002"><i class="fas fa-eye"></i></button>
+                                                <button class="edit-btn" data-id="ORD-002"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn" data-id="ORD-002"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="order-checkbox"></td>
+                                        <td>#ORD-003</td>
+                                        <td>Lê Văn C</td>
+                                        <td>Nhà phố Thảo Điền</td>
+                                        <td>Mua</td>
+                                        <td>18/04/2023</td>
+                                        <td>5.2 tỷ VNĐ</td>
+                                        <td><span class="status processing">Đang xử lý</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="view-btn" data-id="ORD-003"><i class="fas fa-eye"></i></button>
+                                                <button class="edit-btn" data-id="ORD-003"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn" data-id="ORD-003"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="order-checkbox"></td>
+                                        <td>#ORD-004</td>
+                                        <td>Phạm Thị D</td>
+                                        <td>Căn hộ Masteri</td>
+                                        <td>Thuê</td>
+                                        <td>17/04/2023</td>
+                                        <td>15 triệu VNĐ/tháng</td>
+                                        <td><span class="status inactive">Đã hủy</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="view-btn" data-id="ORD-004"><i class="fas fa-eye"></i></button>
+                                                <button class="edit-btn" data-id="ORD-004"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn" data-id="ORD-004"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="order-checkbox"></td>
+                                        <td>#ORD-005</td>
+                                        <td>Hoàng Văn E</td>
+                                        <td>Đất nền Bình Chánh</td>
+                                        <td>Mua</td>
+                                        <td>16/04/2023</td>
+                                        <td>4.8 tỷ VNĐ</td>
+                                        <td><span class="status active">Hoàn thành</span></td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <button class="view-btn" data-id="ORD-005"><i class="fas fa-eye"></i></button>
+                                                <button class="edit-btn" data-id="ORD-005"><i class="fas fa-edit"></i></button>
+                                                <button class="delete-btn" data-id="ORD-005"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled><i class="fas fa-chevron-left"></i></button>
+                            <div class="page-numbers">
+                                <button class="page-number active">1</button>
+                                <button class="page-number">2</button>
+                                <button class="page-number">3</button>
+                                <span>...</span>
+                                <button class="page-number">10</button>
+                            </div>
+                            <button class="pagination-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Detail Modal -->
+                <div class="modal" id="orderDetailModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Chi tiết đơn hàng #<span id="orderDetailId">ORD-001</span></h2>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="order-detail">
+                                <div class="order-info">
+                                    <h3>Thông tin đơn hàng</h3>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">ID đơn hàng:</span>
+                                            <span class="info-value">#ORD-001</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Ngày tạo:</span>
+                                            <span class="info-value">20/04/2023 14:30</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Trạng thái:</span>
+                                            <span class="info-value status active">Hoàn thành</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Loại giao dịch:</span>
+                                            <span class="info-value">Mua</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-customer">
+                                    <h3>Thông tin khách hàng</h3>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Tên khách hàng:</span>
+                                            <span class="info-value">Nguyễn Văn A</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Email:</span>
+                                            <span class="info-value">nguyenvana@gmail.com</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Số điện thoại:</span>
+                                            <span class="info-value">0901234567</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Địa chỉ:</span>
+                                            <span class="info-value">123 Đường ABC, Quận 1, TP.HCM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-property">
+                                    <h3>Thông tin bất động sản</h3>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Tên BĐS:</span>
+                                            <span class="info-value">Chung cư Star City</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Mã BĐS:</span>
+                                            <span class="info-value">PROP-123</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Địa chỉ:</span>
+                                            <span class="info-value">456 Đường XYZ, Quận 2, TP.HCM</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Diện tích:</span>
+                                            <span class="info-value">95 m²</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-payment">
+                                    <h3>Thông tin thanh toán</h3>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Tổng tiền:</span>
+                                            <span class="info-value">3.5 tỷ VNĐ</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Hình thức thanh toán:</span>
+                                            <span class="info-value">Chuyển khoản ngân hàng</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Trạng thái thanh toán:</span>
+                                            <span class="info-value status active">Đã thanh toán</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Ngày thanh toán:</span>
+                                            <span class="info-value">21/04/2023</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-notes">
+                                    <h3>Ghi chú</h3>
+                                    <p>Khách hàng thanh toán đầy đủ, giao dịch hoàn tất. Đã bàn giao sổ đỏ và giấy tờ liên quan.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary close-modal">Đóng</button>
+                            <button class="btn btn-primary" id="printOrder">In đơn hàng</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Order Modal -->
+                <div class="modal" id="editOrderModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Cập nhật đơn hàng #<span id="editOrderId">ORD-001</span></h2>
+                            <button class="close-modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editOrderForm">
+                                <div class="form-group">
+                                    <label for="orderStatus">Trạng thái đơn hàng</label>
+                                    <select id="orderStatus" required>
+                                        <option value="pending">Chờ xử lý</option>
+                                        <option value="processing">Đang xử lý</option>
+                                        <option value="completed">Hoàn thành</option>
+                                        <option value="cancelled">Đã hủy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="paymentStatus">Trạng thái thanh toán</label>
+                                    <select id="paymentStatus" required>
+                                        <option value="unpaid">Chưa thanh toán</option>
+                                        <option value="partial">Thanh toán một phần</option>
+                                        <option value="paid">Đã thanh toán</option>
+                                        <option value="refunded">Đã hoàn tiền</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="orderNotes">Ghi chú</label>
+                                    <textarea id="orderNotes" rows="4"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary close-modal">Hủy</button>
+                            <button class="btn btn-primary" id="saveOrderChanges">Lưu thay đổi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/orders.js"></script>
+</body>
+</html> 

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Quản trị bất động sản</title>
+    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/sidebar-toggle.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Component -->
+        <div id="sidebar"></div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Header Component -->
+            <div id="header"></div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-header">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="dashboard.html">Home</a></li>
+                        <li>Dashboard</li>
+                    </ul>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon users">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,520</h3>
+                            <p>Người dùng</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon properties">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>485</h3>
+                            <p>Bất động sản</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon transactions">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>128</h3>
+                            <p>Giao dịch</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon revenue">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>48.5M</h3>
+                            <p>Doanh thu (VNĐ)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section - Row 1 -->
+                <div class="analytics-section">
+                    <!-- Revenue Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Thống kê doanh thu</h3>
+                            <div class="card-tools">
+                                <select id="revenueTimeRange" class="form-control">
+                                    <option value="day">Ngày</option>
+                                    <option value="week">Tuần</option>
+                                    <option value="month" selected>Tháng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 350px;">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section - Row 2 (Split into 2 columns) -->
+                <div class="analytics-section analytics-grid">
+                    <!-- Property Distribution Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Phân bố loại bất động sản</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-sm" data-tooltip="Tải xuống">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm" data-tooltip="Làm mới">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 280px;">
+                                <canvas id="propertyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transaction Status Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tình trạng giao dịch</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-sm" data-tooltip="Tải xuống">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm" data-tooltip="Làm mới">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 280px;">
+                                <canvas id="transactionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 (Split into 2 columns) -->
+                <div class="analytics-section analytics-grid">
+                    <!-- User Growth Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tăng trưởng người dùng</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-sm" data-tooltip="Tải xuống">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm" data-tooltip="Làm mới">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 280px;">
+                                <canvas id="userGrowthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Area Distribution Chart -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Phân bố khu vực</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-sm" data-tooltip="Tải xuống">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm" data-tooltip="Làm mới">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 280px;">
+                                <canvas id="areaDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Hoạt động gần đây</h3>
+                        <div class="card-tools">
+                            <button class="btn btn-view" data-tooltip="Xem tất cả hoạt động">
+                                <i class="fas fa-list"></i> Xem tất cả
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Người dùng</th>
+                                        <th>Hoạt động</th>
+                                        <th>Thời gian</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#00123</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Nguyễn Văn A
+                                            </div>
+                                        </td>
+                                        <td>Đăng bất động sản mới</td>
+                                        <td>10:45 - 28/04/2023</td>
+                                        <td><span class="status active">Đã duyệt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#00124</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Trần Thị B
+                                            </div>
+                                        </td>
+                                        <td>Cập nhật thông tin</td>
+                                        <td>09:30 - 28/04/2023</td>
+                                        <td><span class="status pending">Chờ duyệt</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#00125</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Lê Văn C
+                                            </div>
+                                        </td>
+                                        <td>Thanh toán gói dịch vụ</td>
+                                        <td>08:15 - 28/04/2023</td>
+                                        <td><span class="status active">Hoàn tất</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#00126</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Phạm Thị D
+                                            </div>
+                                        </td>
+                                        <td>Đăng ký tài khoản</td>
+                                        <td>07:50 - 28/04/2023</td>
+                                        <td><span class="status active">Đã xác thực</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>#00127</td>
+                                        <td>
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="img/user.jpg" alt="User" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 10px;">
+                                                Hoàng Văn E
+                                            </div>
+                                        </td>
+                                        <td>Báo cáo vi phạm</td>
+                                        <td>06:30 - 28/04/2023</td>
+                                        <td><span class="status inactive">Đang xử lý</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

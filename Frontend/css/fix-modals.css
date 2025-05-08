@@ -1,0 +1,202 @@
+/**
+ * fix-modals.css - Sửa lỗi hiển thị modal và cải thiện UI
+ */
+
+/* ===== Sửa lỗi modal ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 800px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+/* Đảm bảo nút đóng luôn hiển thị và có thể nhấp được */
+.modal-close {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    z-index: 10;
+    position: relative;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+/* ===== Hệ thống thông báo ===== */
+.notif-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-left: 4px solid #4CAF50;
+    overflow: hidden;
+}
+
+.notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification.success {
+    border-left-color: #4CAF50;
+}
+
+.notification.error {
+    border-left-color: #F44336;
+}
+
+.notification.warning {
+    border-left-color: #FF9800;
+}
+
+.notification.info {
+    border-left-color: #2196F3;
+}
+
+.notif-icon {
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+.notification.success .notif-icon {
+    color: #4CAF50;
+}
+
+.notification.error .notif-icon {
+    color: #F44336;
+}
+
+.notification.warning .notif-icon {
+    color: #FF9800;
+}
+
+.notification.info .notif-icon {
+    color: #2196F3;
+}
+
+.notif-content {
+    flex-grow: 1;
+    padding-right: 10px;
+    font-size: 14px;
+}
+
+.notif-close {
+    cursor: pointer;
+    color: #999;
+    font-size: 16px;
+}
+
+.notif-close:hover {
+    color: #333;
+}
+
+/* ===== Cải thiện khả năng sử dụng cho các nút ===== */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.btn:active:after {
+    opacity: 1;
+}
+
+/* Sửa trạng thái disabled của nút */
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Cải thiện trải nghiệm focus */
+.btn:focus, 
+.form-control:focus, 
+.modal-close:focus {
+    outline: 2px solid rgba(66, 153, 225, 0.5);
+    outline-offset: 2px;
+}
+
+/* Sử dụng will-change để tối ưu hiệu năng */
+.btn-edit, 
+.btn-delete, 
+.btn-view {
+    will-change: transform;
+}
+
+/* Thêm visual feedback khi hover */
+.btn-edit:hover, 
+.btn-delete:hover, 
+.btn-view:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Thêm visual feedback khi active */
+.btn-edit:active, 
+.btn-delete:active, 
+.btn-view:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+} 
